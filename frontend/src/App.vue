@@ -1,0 +1,23 @@
+<template>
+  <div id="app">
+    <Header />
+    <Footer msg="Groupomania"/>
+  </div>
+</template>
+
+<script>
+import Header from './components/Header.vue';
+import Footer from './components/Footer.vue';
+import '../public/styles.css';
+
+export default {
+  name: 'App',
+  components: {
+    Header,
+    Footer
+  }
+}
+</script>
+
+<style lang="css">
+</style>
