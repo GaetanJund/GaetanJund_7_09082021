@@ -1,22 +1,22 @@
 <template>
   <div id="app">
-    <Header />
-    <Footer msg="Groupomania"/>
+    <Header msg="Groupomania" />
+    <Footer msg="Groupomania" />
   </div>
 </template>
 
 <script>
-import Header from './components/Header.vue';
-import Footer from './components/Footer.vue';
-import '../public/styles.css';
+import Header from "./components/Header.vue";
+import Footer from "./components/Footer.vue";
+import "../public/styles.css";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     Header,
-    Footer
-  }
-}
+    Footer,
+  },
+};
 </script>
 
 <style lang="css">

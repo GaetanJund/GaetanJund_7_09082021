@@ -18,3 +18,30 @@
   width: 500px;
   border-radius: 10px 10px 10px 10px;
 }
+
+/* Footer */
+.footer_info{
+  margin-bottom: 10px;
+}
+
+.footer_bouton{
+  margin-left: 10px;
+}
+
+/* Boutons */
+v-btn {
+  color: black ;
+  background-color: grey ;
+  text-transform: none ;
+  border-radius: 10px 10px 10px 10px;
+  padding: 5px;
+  margin-left: 10px;
+}
+
+v-btn:hover{
+  cursor: pointer;
+  text-decoration: none;
+  background-color: #c44949 ;
+  color: black ;
+  transition: 0.3s;
+}

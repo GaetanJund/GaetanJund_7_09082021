@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
     <img alt="Groupomania logo" src="../assets/icon-above-font.png" width="200px">
-    <h1>Bienvenue sur le réseau social de l'entreprise Groupomania</h1>
+    <h1>Bienvenue sur le réseau social de l'entreprise {{ msg }}</h1>
     <nav id="nav">
       <ul>
         <li id="header_bouton">

@@ -3,14 +3,17 @@ const express = require('express');
 const router = express.Router();
 const userCtrl = require('../controllers/user');
 
-// Importer les middleware
+// Importe la vérification du password + blocage paswword
+const auth = require("../middleware/auth");
+const verifPassword = require('../middleware/password-verif');
+const multer = require("../middleware/multer-config");
 
 // Créer 2 routes POST
 
 // Ajout de l'utilisateur dans la base de donnée
-router.post('/signup', userCtrl.signup);
+router.post('/signup', auth, verifPassword, userCtrl.signup);
 // Connecte un utilisateur déjà inscrit
-router.post('/login', userCtrl.login);
+router.post('/login', auth, userCtrl.login);
 // Supprimer un compte
 router.delete("/accounts/:id", auth, userCtrl.deleteAccount);
 // Modifier compte
