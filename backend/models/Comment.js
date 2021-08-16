@@ -2,8 +2,8 @@
 const DataTypes = require('sequelize');
 const database = require('./connexion');
 
-// Défini dans la base Sequelize 'User', pour model dans la base
-const User = database.define('User', {
+// Défini dans la base Sequelize 'Comments', pour model dans la base
+const Comments = database.define('Comments', {
     nom: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -14,19 +14,10 @@ const User = database.define('User', {
         allowNull: false,
         unique: true
     },
-    email: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true
-    },
-    password: {
-        type: DataTypes.STRING,
+    massage: {
+        type: DataTypes.TEXT,
         allowNull: false
-    },
-    photo: {
-        type: DataTypes.STRING,
-        allowNull: true
     }
 });
 
-module.exports = User;
+module.exports = Comments;

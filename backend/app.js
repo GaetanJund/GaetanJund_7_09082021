@@ -1,11 +1,11 @@
 // Importe package express + body-parser
 const express = require('express');
 const bodyParser = require('body-parser');
-const { loadModel } = require('./models/index.js');
+const { loadModel } = require('./models/index');
 
 // // Routes vers utilisateurs et publications
-// const userRoutes = require('./routes/users');
-// const publicationRoutes = require('./routes/publications');
+// const userRoutes = require('./routes/user');
+// const postRoutes = require('./routes/post');
 
 // Application va tourner avec express
 const app = express();
@@ -31,6 +31,6 @@ app.use(express.urlencoded({
 // // Routes vers utilisateurs
 // app.use('/api/auth', userRoutes);
 // // Routes vers produits
-// app.use('/api/publication', publicationRoutes);
+// app.use('/api/post', postRoutes);
 
 module.exports = app;

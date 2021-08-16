@@ -1,13 +1,15 @@
 // Import model User + Post
 const User = require('./User');
 const Post = require('./Post');
+const Comments = require('./Comment');
 
 // loadModel pour 
-let loadModel = async () => {
+const loadModel = async () => {
     await Post.belongsTo(User, { foreignKey: 'user_id', onDelete: 'cascade' });
 
-    await User.sync({ alter: true });
-    await Post.sync({ alter: true });
-}
+    await User.sync({ alterForce: true });
+    await Post.sync({ alterForce: true });
+    await Comments.sync({ alterForce: true });
+};
 
-module.exports = { loadModel, User, Post };
+module.exports = { loadModel, User, Post, Comments };

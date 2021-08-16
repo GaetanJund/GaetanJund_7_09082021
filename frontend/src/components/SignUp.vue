@@ -1,11 +1,11 @@
 <template>
   <div id="signup">
-    <form action="" method="">
+    <v-form action="" method="">
       <div>
         <label for="email">Email :</label>
         <input
           type="text"
-          id="name"
+          id="email"
           name="email_user"
           placeholder="E-mail utilisateur"
         />
@@ -21,7 +21,7 @@
         />
       </div>
       <br />
-      <button id="singup">S'inscrire</button> <br /><br />
-    </form>
+      <button id="signup">S'inscrire</button> <br /><br />
+    </v-form>
   </div>
 </template>
