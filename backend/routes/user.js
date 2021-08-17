@@ -11,9 +11,9 @@ const multer = require("../middleware/multer-config");
 // Créer 2 routes POST
 
 // Ajout de l'utilisateur dans la base de donnée
-router.post('/signup', auth, verifPassword, userCtrl.signup);
+router.post('/signup', verifPassword, userCtrl.signup);
 // Connecte un utilisateur déjà inscrit
-router.post('/login', auth, userCtrl.login);
+router.post('/login', userCtrl.login);
 // Supprimer un compte
 router.delete("/accounts/:id", auth, userCtrl.deleteAccount);
 // Modifier compte

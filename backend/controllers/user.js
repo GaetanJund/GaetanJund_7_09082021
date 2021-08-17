@@ -8,20 +8,28 @@ require('dotenv').config()
 
 // Enregistrements de nouveau utilisateurs
 exports.signup = (req, res, next) => {
-    User.create({
-        prenom: req.body.prenom,
-        nom: req.body.nom,
-        email: req.body.email,
-        password: req.body.password
-    })
-        .then(user => res.status(201).json(newToken(user)))
-        .catch(error => res.status(401).json({ error: error }))
+    // fonction crypter un mot de passe
+    bcrypt.hash(req.body.password, 10)
+        .then(hash => {
+            // Création d'un nouvel User
+            const user = new User({
+                nom: req.body.nom,
+                prenom: req.body.prenom,
+                email: req.body.email,
+                password: hash
+            });
+            // Enregistrer l'utilisateur dans la base de données
+            user.save()
+                .then(() => res.status(201).json({ message: 'Utilisateur crée !' }))
+                .catch(error => res.status(400).json({ error }));
+        })
+        .catch(error => res.status(500).json({ error }));
 };
 
 // Connexion des utilisateurs existants
 exports.login = (req, res, next) => {
     // Récupère l'utilisateur de la base de données via son email
-    User.find({ email: req.body.email })
+    User.findOne({ email: req.body.email })
         .then(user => {
             // Si on a pas trouvé de user
             if (!user) {
@@ -51,7 +59,7 @@ exports.login = (req, res, next) => {
 // Supprimer un compte
 exports.deleteAccount = (req, res, next) => {
     // Récupérer l'utilisateur de la base de donnée via son email
-    User.find({ email: req.body.email, password: req.body.password })
+    User.findOne({ email: req.body.email, password: req.body.password })
         .then(user => {
             // Si on a pas trouvé de user
             if (!user) {
@@ -67,16 +75,12 @@ exports.deleteAccount = (req, res, next) => {
 
 // Mettre à jour un compte
 exports.updateAccount = (req, res, next) => {
-    try {
-        const userObject = req.file
-            ? {
-                ...JSON.parse(req.body.user),
-                imageUrl: `${req.protocol}://${req.get('host')}/public/${req.file.filename
-                    }`
-            }
-            : { ...req.body }
-        req.user.update(userObject).then(user => res.status(200).json({ user }))
-    } catch (error) {
-        res.status(400).json({ error })
-    }
-}
+    const userObject = req.file ?
+        {
+            ...JSON.parse(req.body.User),
+            imageProfile: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+        } : { ...req.body };
+    User.updateOne({ _id: req.params.id }, { ...userObject, _id: req.params.id })
+        .then(() => res.status(200).json({ message: 'Utilisateur modifiée !' }))
+        .catch(error => res.status(400).json({ error }));
+};

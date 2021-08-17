@@ -21,7 +21,7 @@
         />
       </div>
       <br />
-      <button id="singup">Se connecter</button> <br /><br />
+      <button id="singup" to>Se connecter</button> <br /><br />
     </form>
   </div>
 </template>

@@ -6,58 +6,60 @@ const { Post } = require('./models/index');
 
 // Créer un post
 exports.createPost = (req, res, next) => {
-    const postObject = JSON.parse(req.body.post);
-    delete postObject._id;
+    const PostObject = JSON.parse(req.body.post);
+    delete PostObject._id;
     const post = new Post({
-        ...postObject,
+        ...PostObject,
         imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
         likes: 0,
-        usersLiked: []
+        usersLiked: [],
     });
+    // Sauvegarde post dans la base de donnée
     post.save()
-        .then(() => res.status(201).json({ message: 'Post enregistré !' }))
+        .then(() => res.status(201).json({ message: 'Publication enregistrée !' }))
         .catch(error => res.status(400).json({ error }));
 };
 
 // Supprimer un post
 exports.deletePost = (req, res, next) => {
-    const where = {
-        id: req.params.id
-    }
-
-    if (!req.user.admin) {
-        where.userId = req.user.id
-    }
-
-    Post.findOne({ where })
-        .then(post => {
-            if (!post) {
-                res.status(400).json({ error: "Vous n'avez pas l'autorisation" })
-            }
-            post
-                .destroy()
-                .then(() =>
-                    res.status(200).json({ message: 'Publication supprimée !' })
-                )
-                .catch(error => res.status(400).json({ error }))
+    // Récupère le post de la base de données via son id
+    Post.findOne({ _id: req.params.id })
+        .then(Post => {
+            const filename = Post.imageUrl.split('/images/')[1];
+            fs.unlink(`images/${filename}`, () => {
+                Post.deleteOne({ _id: req.params.id })
+                    .then(() => res.status(200).json({ message: 'Publication supprimée !' }))
+                    .catch(error => res.status(400).json({ error }));
+            });
         })
-        .catch(error => res.status(500).json({ error: error.message }))
+        .catch(error => res.status(500).json({ error }));
 };
 
 // Modifier un post
 exports.updatePost = (req, res, next) => {
-    const postObject = req.file ?
-        {
-            ...JSON.parse(req.body.Post),
-            imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-        } : { ...req.body };
-    Post.updateOne({ _id: req.params.id }, { ...postObject, _id: req.params.id })
-        .then(() => res.status(200).json({ message: 'Publication modifiée !' }))
-        .catch(error => res.status(400).json({ error }));
+    Post.findOne({
+        where: { id: req.params.id }
+    }).then(post => {
+        if (post.userId == req.token.userId) {
+            const postObject = req.file ?
+                {
+                    ...JSON.parse(req.body.Post),
+                    imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+                } : { ...req.body };
+            // Récupère le post et on le met à jour en cherchant le post via son id
+            Post.updateOne({ _id: req.params.id }, { ...postObject, _id: req.params.id })
+                .then(() => res.status(200).json({ message: 'Publication modifiée !' }))
+                .catch(error => res.status(400).json({ error }));
+        } else {
+            res.status(403).json({ message: "Vous n'avez pas le droit de modifier ce post" })
+        }
+    })
+
 };
 
 // Récupérer un post
 exports.getOnePost = (req, res, next) => {
+    // Récupère le post via son id
     Post.findOne({
         _id: req.params.id
     }).then(

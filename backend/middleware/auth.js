@@ -6,14 +6,11 @@ require('dotenv').config()
 // Permet de sécuriser toutes les routes
 module.exports = (req, res, next) => {
     try {
+        // Split le Bearer du token
         const token = req.headers.authorization.split(' ')[1];
-        const decodedToken = jwt.verify(token, process.env.TOKEN_KEY);
-        const userId = decodedToken.userId;
-        if (req.body.userId && req.body.userId !== userId) {
-            throw 'User ID non valable';
-        } else {
+        // Défini req.token = le payload (données transmises au front) + verify (signature)
+        req.token = jwt.verify(token, process.env.TOKEN_KEY);
             next();
-        }
     } catch (error) {
         res.status(401).json({ error: error | 'Requete non authentifié' });
     }

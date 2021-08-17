@@ -8,10 +8,6 @@ const auth = require("../middleware/auth");
 const multer = require("../middleware/multer-config");
 
 // POST
-// Sélectionner tous les post
-router.get("/", auth, postsCtrl.getAllPosts);
-// Sélectionner un post
-router.get("/:id", auth, postsCtrl.getOnePost);
 // Créer un post
 router.post("/add", auth, multer, postsCtrl.createPost);
 // Mettre à jour un post
@@ -20,8 +16,12 @@ router.put("/:id", auth, multer, postsCtrl.updatePost);
 router.delete("/:id", auth, multer, postsCtrl.deletePost);
 // Liker un post
 router.post("/:id/like", auth, postsCtrl.likePost);
+// Sélectionner tous les post
+router.get("/", auth, postsCtrl.getAllPosts);
+// Sélectionner un post
+router.get("/:id", auth, postsCtrl.getOnePost);
 
-// COMMENTAIRE + LIKES
+// COMMENTAIRES + LIKES
 // Ajouter un commentaire
 router.post("/:id/comments", auth, postsCtrl.addComment);
 // modifier un commentaire

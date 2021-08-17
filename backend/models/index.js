@@ -6,6 +6,8 @@ const Comments = require('./Comment');
 // loadModel pour 
 const loadModel = async () => {
     await Post.belongsTo(User, { foreignKey: 'user_id', onDelete: 'cascade' });
+    await Comments.belongsTo(User, { foreignKey : 'user_id', onDelete: 'cascade'});
+    await Post.hasMany(Comments, { foreignKey: 'post_id', onDelete: 'cascade'});
 
     await User.sync({ alterForce: true });
     await Post.sync({ alterForce: true });
