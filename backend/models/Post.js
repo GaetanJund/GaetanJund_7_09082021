@@ -7,9 +7,6 @@ const Post = database.define('Post', {
     message: {
         type: DataTypes.STRING,
         allowNull: false
-    },
-    image: {
-        type: DataTypes.STRING
     }
 });
 

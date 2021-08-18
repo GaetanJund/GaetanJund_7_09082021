@@ -1,8 +1,8 @@
 // Importe fs
-const fs = require('fs'),
+const fs = require('fs');
 
 // Import model
-const { Post } = require('./models/index');
+const { Post } = require('../models/index');
 
 // Créer un post
 exports.createPost = (req, res, next) => {
@@ -10,9 +10,7 @@ exports.createPost = (req, res, next) => {
     delete PostObject._id;
     const post = new Post({
         ...PostObject,
-        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
-        likes: 0,
-        usersLiked: [],
+        message: req.body.message
     });
     // Sauvegarde post dans la base de donnée
     post.save()
@@ -54,7 +52,6 @@ exports.updatePost = (req, res, next) => {
             res.status(403).json({ message: "Vous n'avez pas le droit de modifier ce post" })
         }
     })
-
 };
 
 // Récupérer un post

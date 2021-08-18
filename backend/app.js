@@ -3,9 +3,10 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const { loadModel } = require('./models/index');
 
-// // Routes vers utilisateurs et publications
-// const userRoutes = require('./routes/user');
-// const postRoutes = require('./routes/post');
+// Routes vers utilisateurs, publications et comment
+const userRoutes = require('./routes/user');
+const postRoutes = require('./routes/post');
+const commentRoutes = require('./routes/comment');
 
 // Application va tourner avec express
 const app = express();
@@ -28,9 +29,11 @@ app.use(express.urlencoded({
     extended: true
 }));
 
-// // Routes vers utilisateurs
-// app.use('/api/auth', userRoutes);
-// // Routes vers produits
-// app.use('/api/post', postRoutes);
+// Routes vers utilisateurs
+app.use('/api/auth', userRoutes);
+// Routes vers posts
+app.use('/api/post', postRoutes);
+// Routes vers commentaires
+app.use('/api/comment', commentRoutes);
 
 module.exports = app;

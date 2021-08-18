@@ -21,12 +21,4 @@ router.get("/", auth, postsCtrl.getAllPosts);
 // Sélectionner un post
 router.get("/:id", auth, postsCtrl.getOnePost);
 
-// COMMENTAIRES + LIKES
-// Ajouter un commentaire
-router.post("/:id/comments", auth, postsCtrl.addComment);
-// modifier un commentaire
-router.post("/:id/comments", auth, postsCtrl.updateComment);
-// Supprimer un commentaire
-router.delete("/comments/:id", auth, postsCtrl.deleteComment);
-
 module.exports = router;

@@ -1,8 +1,9 @@
 // Importer jwt
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
 // Import model
-const { User } = require('./models/index');
+const { User } = require('../models/index');
 
 require('dotenv').config()
 
@@ -29,7 +30,7 @@ exports.signup = (req, res, next) => {
 // Connexion des utilisateurs existants
 exports.login = (req, res, next) => {
     // Récupère l'utilisateur de la base de données via son email
-    User.findOne({ email: req.body.email })
+    User.findOne({ email: req.body.email, password: req.body.password })
         .then(user => {
             // Si on a pas trouvé de user
             if (!user) {
