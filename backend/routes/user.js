@@ -15,8 +15,8 @@ router.post('/signup', verifPassword, userCtrl.signup);
 // Connecte un utilisateur déjà inscrit
 router.post('/login', userCtrl.login);
 // Supprimer un compte
-router.delete("/accounts/:id", auth, userCtrl.deleteAccount);
+router.delete("/:id", auth, userCtrl.deleteUser);
 // Modifier compte
-router.put("/accounts/:id", auth, multer, userCtrl.updateAccount);
+router.put("/:id", auth, multer, userCtrl.updateUser);
 
 module.exports = router;

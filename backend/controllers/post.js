@@ -6,32 +6,21 @@ const { Post } = require('../models/index');
 
 // Créer un post
 exports.createPost = (req, res, next) => {
-    const PostObject = JSON.parse(req.body.post);
-    delete PostObject._id;
     const post = new Post({
-        ...PostObject,
         message: req.body.message
-    });
+    })
     // Sauvegarde post dans la base de donnée
     post.save()
-        .then(() => res.status(201).json({ message: 'Publication enregistrée !' }))
+        .then(() => res.status(201).json({ message: 'Post enregistrée !' }))
         .catch(error => res.status(400).json({ error }));
 };
 
 // Supprimer un post
 exports.deletePost = (req, res, next) => {
-    // Récupère le post de la base de données via son id
-    Post.findOne({ _id: req.params.id })
-        .then(Post => {
-            const filename = Post.imageUrl.split('/images/')[1];
-            fs.unlink(`images/${filename}`, () => {
-                Post.deleteOne({ _id: req.params.id })
-                    .then(() => res.status(200).json({ message: 'Publication supprimée !' }))
-                    .catch(error => res.status(400).json({ error }));
-            });
-        })
-        .catch(error => res.status(500).json({ error }));
-};
+    Post.destroy({ where: { id: req.params.id } })
+        .then(() => res.status(200).json({ message: "Post supprimé !" }))
+        .catch(error => res.status(400).json({ error }))
+}
 
 // Modifier un post
 exports.updatePost = (req, res, next) => {

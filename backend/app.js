@@ -28,6 +28,7 @@ app.use(express.json());
 app.use(express.urlencoded({
     extended: true
 }));
+app.use(bodyParser.json());
 
 // Routes vers utilisateurs
 app.use('/api/auth', userRoutes);
