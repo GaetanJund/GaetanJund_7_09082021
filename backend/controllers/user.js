@@ -47,8 +47,9 @@ exports.login = (req, res, next) => {
                     }
                     res.status(200).json({
                         userId: user.id,
+                        isAdmin: user.isAdmin,
                         token: jwt.sign(
-                            { userId: user.id },
+                            { userId: user.id, isAdmin: user.isAdmin },
                             process.env.TOKEN_KEY,
                             { expiresIn: '24h' }
                         )
@@ -73,8 +74,7 @@ exports.updateUser = (req, res, next) => {
     User.update(
         {
             nom: req.body.nom,
-            prenom: req.body.prenom,
-            email: req.body.email
+            prenom: req.body.prenom
         },
         {
             where: {

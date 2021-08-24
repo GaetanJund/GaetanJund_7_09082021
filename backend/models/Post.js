@@ -7,7 +7,9 @@ const Post = database.define('Post', {
     message: {
         type: DataTypes.STRING,
         allowNull: false
-    }
+    },
+    // likes: DataTypes.INTEGER,
+    // DisLikes: DataTypes.INTEGER
 });
 
 module.exports = Post;

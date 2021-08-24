@@ -4,8 +4,8 @@ const database = require('./connexion');
 
 // Défini dans la base Sequelize 'Comments', pour model dans la base
 const Comments = database.define('Comments', {
-    massage: {
-        type: DataTypes.TEXT,
+    message: {
+        type: DataTypes.STRING,
         allowNull: false
     }
 });

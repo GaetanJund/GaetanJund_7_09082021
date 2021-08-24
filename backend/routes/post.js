@@ -17,8 +17,8 @@ router.delete("/:id", auth, multer, postsCtrl.deletePost);
 // Liker un post
 router.post("/:id/like", auth, postsCtrl.likePost);
 // Sélectionner tous les post
-router.get("/", auth, postsCtrl.getAllPosts);
+router.get("/posts", auth, postsCtrl.getAllPosts);
 // Sélectionner un post
-router.get("/:id", auth, postsCtrl.getOnePost);
+router.get("/posts/:id", auth, postsCtrl.getOnePost);
 
 module.exports = router;

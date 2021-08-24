@@ -8,10 +8,14 @@ const auth = require("../middleware/auth");
 
 // COMMENTAIRES + LIKES
 // Ajouter un commentaire
-router.post("/:id/comments", auth, commentsCtrl.addComment);
+router.post("/add", auth, commentsCtrl.addComment);
 // modifier un commentaire
-router.post("/:id/comments", auth, commentsCtrl.updateComment);
+router.post("/:id", auth, commentsCtrl.updateComment);
 // Supprimer un commentaire
-router.delete("/comments/:id", auth, commentsCtrl.deleteComment);
+router.delete("/:id", auth, commentsCtrl.deleteComment);
+// Sélectionner tous les commentaires
+router.get("/comments", auth, commentsCtrl.getAllComment);
+// Sélectionner un commentaire
+router.get("/comments/:id", auth, commentsCtrl.getOneComment);
 
 module.exports = router;
