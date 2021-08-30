@@ -1,32 +1,20 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-// import auth from '../middleware/auth'
-import VueRouteMiddleware from 'vue-route-middleware'
+// import Vue from 'vue';
+// import VueRouter from 'vue-router';
 
-Vue.use(VueRouter)
+// Vue.use(VueRouter)
 
-const routes = [
-  {
-    path: '/login',
-    name: 'Login',
-    component: () => import('../components/Login.vue')
-  },
-  {
-    path: '/signup',
-    name: 'Signup',
-    component: () => import('../components/SignUp.vue')
-  },
-  {
-    path: '/header',
-    name: 'header',
-    component: () => import('../components/Header.vue')
-  },
-]
+// const routes = [
+//   {
+//     path: '/signup',
+//     name: 'Signup',
+//     component: () => import('../views/Signup.vue')
+//   }
+// ]
 
-const router = new VueRouter({
-  routes
-})
+// const router = new VueRouter({
+//   mode: 'history',
+//   base: process.env.BASE_URL,
+//   routes
+// })
 
-router.beforeEach(VueRouteMiddleware())
-
-export default router
+// export default router;

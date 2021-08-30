@@ -1,26 +1,24 @@
 <template>
-  <div class="hello">
-    <img alt="Groupomania logo" src="../assets/icon-above-font.png" width="200px">
-    <h1>Bienvenue sur le réseau social de l'entreprise Groupomania</h1>
-    <br />
+  <div class="header">
+    <img
+      src="../assets/icon.png"
+      alt="logo_groupomania"
+      class="logo_groupomania"
+    />
+    <h1>Groupomania</h1>
+    <h4>Réseau social de l'entreprise : Groupomania</h4>
   </div>
 </template>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h3 {
-  margin: 40px 0 0;
+<style>
+.header {
+  text-align: center;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
+.logo_groupomania {
+  width: 100px;
 }
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #e43535;
-  text-decoration: none;
+h1 {
+  color: red;
+  font-size: 50px;
 }
 </style>
