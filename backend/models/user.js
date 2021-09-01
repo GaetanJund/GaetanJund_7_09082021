@@ -6,13 +6,11 @@ const database = require('./connexion');
 const User = database.define('User', {
     nom: {
         type: DataTypes.STRING,
-        allowNull: false,
-        unique: true
+        allowNull: false
     },
     prenom: {
         type: DataTypes.STRING,
-        allowNull: false,
-        unique: true
+        allowNull: false
     },
     email: {
         type: DataTypes.STRING,

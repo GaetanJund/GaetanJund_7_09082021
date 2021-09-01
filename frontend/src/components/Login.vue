@@ -1,7 +1,7 @@
-// Html du composant signup
+// Html du composant login
 <template>
   <div class="home">
-    <form @submit.prevent="signup()">
+    <form @submit.prevent="login()">
       <div class="image_logo">
         <img
           src="../assets/icon-above-font.png"
@@ -11,37 +11,25 @@
         <h4>Bienvenue sur le réseau social de l'entreprise Groupomania</h4>
       </div>
       <nav>
-        <router-link to="/login" class="router_link">Se connecter</router-link>
+        <router-link to="/login" class="active router_link"
+          >Se connecter</router-link
+        >
         |
-        <router-link to="/" class="active router_link">S'inscrire</router-link>
+        <router-link to="/" class="router_link">S'inscrire</router-link>
       </nav>
-      <label for="signup-nom">Nom :</label>
-      <input id="signup-nom" type="text" placeholder="Nom" required />
 
-      <label for="signup-prenom">Prenom :</label>
-      <input id="signup-prenom" type="text" placeholder="Prenom" required />
+      <label for="login-email">Email :</label>
+      <input id="login-email" type="email" placeholder="Email" required />
 
-      <label for="signup-password">Mot de passe :</label>
+      <label for="login-password">Mot de passe :</label>
       <input
-        id="signup-password"
+        id="login-password"
         type="password"
         placeholder="Mot de passe"
         required
       />
 
-      <label for="signup-email">Email :</label>
-      <input id="signup-email" type="email" placeholder="Email" required />
-
-      <label for="avatar">Choose a profile picture:</label>
-
-      <input
-        type="file"
-        id="photo"
-        name="photo"
-        accept="image/png, image/jpeg"
-      />
-
-      <button id="signup-btn" type="submit">S'inscrire</button>
+      <button id="login-btn" type="submit">Connexion</button>
     </form>
     <footer>
       <img src="../assets/icon.png" alt="logo2" class="logo2" />
@@ -54,30 +42,24 @@
 // Importe axios (permet de communiquer avec les API en utilisant des requêtes)
 import axios from "axios";
 export default {
-  name: "Signup",
+  name: "Login",
   data() {
     return {
       message: "",
     };
   },
   methods: {
-    signup() {
+    login() {
       // Définit des constantes, recherche valeurs des éléments par Id
-      const nom = document.getElementById("signup-nom").value;
-      const prenom = document.getElementById("signup-prenom").value;
-      const password = document.getElementById("signup-password").value;
-      const email = document.getElementById("signup-email").value;
-      const photo = document.getElementById("photo").value;
+      const email = document.getElementById("login-email").value;
+      const password = document.getElementById("login-password").value;
       axios
         // POST -- Envoi des doonénes vers l'Api
         .post(
-          `http://localhost:3000/api/auth/signup`,
+          `http://localhost:3000/api/auth/login`,
           {
-            nom: nom,
-            prenom: prenom,
-            password: password,
             email: email,
-            photo: photo,
+            password: password,
           },
           {
             headers: {
@@ -85,15 +67,24 @@ export default {
             },
           }
         )
-        // Reponse status 201 qui renvoi vers une page
         .then((res) => {
-          if (res.status === 201) {
+          // Refresh de la page
+          if (res.status === 200) {
+            localStorage.setItem("user", JSON.stringify(res.data));
             location.assign("/login");
           }
+
         })
+        // Erreur serveur
         .catch((error) => {
+          if (error.response.status === 404) {
+            this.message = "Utilisateur inconnu.";
+          }
           if (error.response.status === 401) {
-            this.message = "Email non disponible.";
+            this.message = "Email ou mot de passe invalide.";
+          }
+          if (error.response.status === 500) {
+            this.message = "Erreur serveur.";
           }
         });
     },
@@ -152,7 +143,7 @@ form input {
   border: 1px solid black;
   border-radius: 10px 10px 10px 10px;
 }
-#signup-btn {
+#login-btn {
   padding: 10px;
   font-size: 1.1rem;
   color: white;
@@ -162,7 +153,7 @@ form input {
   transition-duration: 0.2s;
   cursor: pointer;
 }
-#signup-btn:hover {
+#login-btn:hover {
   transform: scale(1.02);
 }
 label {

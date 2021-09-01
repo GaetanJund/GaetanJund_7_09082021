@@ -1,18 +1,14 @@
 <template>
-  <v-app>
-    <v-main>
-      <router-view><welcome /></router-view>
-    </v-main>
-  </v-app>
+  <div id="app">
+    <router-view />
+  </div>
 </template>
 
-<script>
-import welcome from "./views/Home.vue";
-export default {
-  name: "App",
-  components: {
-    welcome
-  },
-  data: () => ({}),
-};
-</script>
+<style>
+#app{
+  font-family: 'Roboto', sans-serif;
+}
+body{
+  margin: 0;
+}
+</style>
