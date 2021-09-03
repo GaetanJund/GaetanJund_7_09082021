@@ -71,7 +71,7 @@ export default {
           // Refresh de la page
           if (res.status === 200) {
             localStorage.setItem("user", JSON.stringify(res.data));
-            location.assign("/login");
+            location.assign("/homepage");
           }
 
         })
