@@ -3,11 +3,12 @@
   <div class="home">
     <form @submit.prevent="login()">
       <div class="image_logo">
-        <img
-          src="../assets/icon-above-font.png"
-          alt="Groupomania logo"
-          class="logo1"
-        />
+        <a href="/login"
+          ><img
+            src="../assets/icon-above-font.png"
+            alt="Groupomania logo"
+            class="logo1"
+        /></a>
         <h4>Bienvenue sur le réseau social de l'entreprise Groupomania</h4>
       </div>
       <nav>
@@ -118,6 +119,8 @@ nav {
 .router_link {
   text-decoration: none;
   color: black;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 .active {
   color: red;
@@ -168,14 +171,5 @@ label {
   padding: 0;
   position: absolute;
   width: 1px;
-}
-footer {
-  margin-top: 30px;
-  font-size: 1.2rem;
-  text-align: center;
-}
-.logo2 {
-  width: 50px;
-  border-radius: 10px;
 }
 </style>
