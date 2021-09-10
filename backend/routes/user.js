@@ -18,5 +18,7 @@ router.post('/login', userCtrl.login);
 router.delete("/account/:id", auth, userCtrl.deleteUser);
 // Modifier compte
 router.put("/account/:id", auth, multer, userCtrl.updateUser);
+// Récupérer un user
+router.get("/account/:id", auth, multer, userCtrl.getOneUser);
 
 module.exports = router;

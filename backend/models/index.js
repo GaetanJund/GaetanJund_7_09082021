@@ -11,9 +11,9 @@ const loadModel = async () => {
     await Post.hasMany(Comments, { foreignKey: 'post_id', onDelete: 'cascade'});
 
     await database.query('SET FOREIGN_KEY_CHECKS=0');
-    await User.sync({ alter: true });
-    await Post.sync({ alter: true });
-    await Comments.sync({ alter: true });
+    await User.sync({ alterForce: true });
+    await Post.sync({ alterForce: true });
+    await Comments.sync({ alterForce: true });
     await database.query('SET FOREIGN_KEY_CHECKS=1');
 };
 

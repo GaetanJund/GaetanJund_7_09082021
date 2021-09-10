@@ -10,14 +10,19 @@
         >
       </div>
       <div class="post-message" v-html="characterLimit(post.message)"></div>
+      <Comments />
     </article>
   </div>
 </template>
 
 <script>
+import Comments from "../components/Comments.vue"
 import axios from "axios";
 export default {
   name: "Posts",
+  components: {
+    Comments,
+  },
   data() {
     // Retourne les posts
     return {
@@ -33,19 +38,21 @@ export default {
   methods: {
     // Fonction pour avoir tous les posts
     getAllPost() {
+      // GetItem pour retrouver le token du User
+      let user = JSON.parse(localStorage.getItem("user"));
       axios
         // GET pour chercher tous les posts dans l'API
         .get(`http://localhost:3000/api/post/posts`, {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjcsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE2MzA5MjA2ODgsImV4cCI6MTYzMTAwNzA4OH0.jcPwp0CSFYfF7z44LIvKpwuSjPmguLovGyjnwbB4qok`,
+            Authorization: `Bearer ${user.token}`,
           },
         })
         .then((res) => {
           this.posts = res.data;
         });
     },
-    // Focntionn pour limite de caractère avant les ...
+    // Fonction pour limite de caractère avant les ...
     characterLimit(message) {
       let text = message;
       const maxLength = 250;
@@ -93,21 +100,16 @@ export default {
 .post h2 {
   margin-top: 7px;
 }
+.post-info {
+  font-size: 0.8rem;
+}
 .post-header {
   display: flex;
   justify-content: space-between;
   color: rgb(0, 0, 0);
   font-size: 0.8rem;
 }
-.post-modify {
-  color: rgb(219, 17, 17);
-  font-size: 1rem;
-  font-weight: bold;
-}
-.post-title {
-  color: red;
-}
 .post-message {
-  font-size: 0.9rem;
+  font-size: 1.1rem;
 }
 </style>

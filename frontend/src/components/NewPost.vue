@@ -30,6 +30,8 @@ export default {
     newpost() {
       // Définit des constantes, recherche valeurs des éléments par Id
       const newpost = document.getElementById("newpost-text").value;
+      // GetItem pour retrouver le token du User
+      let user = JSON.parse(localStorage.getItem("user"));
       axios
         // POST -- Envoi des doonénes vers l'API
         .post(
@@ -40,7 +42,7 @@ export default {
           {
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjcsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE2MzA5MjA2ODgsImV4cCI6MTYzMTAwNzA4OH0.jcPwp0CSFYfF7z44LIvKpwuSjPmguLovGyjnwbB4qok`,
+              Authorization: `Bearer ${user.token}`,
             },
           }
         )
@@ -73,8 +75,10 @@ label {
 input {
   border: 2px solid black;
   border-radius: 10px 10px 10px 10px;
+  padding: 10px;
   height: 100px;
-  width: 500px;
+  width: 1000px;
+  text-align: left;
 }
 .publication {
   padding: 6px 100px;

@@ -1,5 +1,5 @@
 // Import model
-const { Comments } = require("../models/index");
+const { Post, User, Comments } = require('../models/index');
 
 // Créer un commentaire
 exports.addComment = (req, res, next) => {

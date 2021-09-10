@@ -21,26 +21,6 @@ export default {
     Posts,
     Footer,
   },
-  data() {
-    return {
-      connected: true,
-    };
-  },
-  created() {
-    this.checkConnected();
-  },
-  methods: {
-    //   Voir si utilisateur est bien connecté
-    checkConnected() {
-      if (localStorage.user !== undefined) {
-        this.connected = true;
-        console.log("Utilisateur connecté !");
-      } else if (localStorage.user == undefined) {
-        this.connected = false;
-        console.log("Utilisateur non connecté !");
-      }
-    },
-  },
 };
 </script>
 
@@ -48,6 +28,7 @@ export default {
 .home {
   background-image: url(../assets/background.jpg);
   background-size: cover;
+  border-radius: 10px;
 }
 h2 {
   text-align: center;

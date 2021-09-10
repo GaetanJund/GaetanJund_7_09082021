@@ -10,7 +10,7 @@ const auth = require("../middleware/auth");
 // Ajouter un commentaire
 router.post("/add", auth, commentsCtrl.addComment);
 // modifier un commentaire
-router.post("/:id", auth, commentsCtrl.updateComment);
+router.put("/:id", auth, commentsCtrl.updateComment);
 // Supprimer un commentaire
 router.delete("/:id", auth, commentsCtrl.deleteComment);
 // Sélectionner tous les commentaires
