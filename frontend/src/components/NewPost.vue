@@ -8,7 +8,8 @@
           type="text"
           placeholder="Quoi de neuf ?"
           required
-        /><br /><br />
+        />
+        <br /><br />
         <button class="publication" type="submit">Publier</button>
       </div>
     </form>

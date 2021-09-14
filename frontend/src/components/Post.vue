@@ -8,7 +8,7 @@
             <strong>{{ post.User.prenom }} {{ post.User.nom }}</strong></span
           ></i
         >
-        <button class="post-delete" @click="deletePost(post.id)">
+        <button class="delete-post" @click="deletePost(post.id)">
           Supprimer
         </button>
       </div>
@@ -119,6 +119,12 @@ export default {
 }
 .post-info {
   font-size: 0.8rem;
+}
+.delete-post {
+  background-color: black;
+  color: red;
+  padding: 7px;
+  border-radius: 5px;
 }
 .post-header {
   display: flex;

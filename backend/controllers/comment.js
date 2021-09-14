@@ -89,10 +89,9 @@ exports.getOneComment = (req, res, next) => {
 exports.getAllComment = (req, res, next) => {
     Comments.findAll({
         include: [{
-            model: User,
-            attributes: ['nom', 'prenom'],
-        }]
+        model: User
+    }]
     })
         .then(Comment => res.status(200).json(Comment))
-        .catch(error => res.status(400).json({ error }));
+    .catch(error => res.status(400).json({ error }));
 };

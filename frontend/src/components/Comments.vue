@@ -13,18 +13,24 @@
       </button>
     </form>
 
-    <h2 v-if="comments.length > 0">Commentaires du post :</h2>
+    <h4><u>Commentaires du post :</u></h4>
 
     <div class="comments2">
       <div class="comment" v-for="comment in post.Comments" :key="comment.id">
         <div class="comment-info">
-          Par {{ comment.prenom }} {{ comment.nom }} le
+          Par
+          <strong
+            ><i>{{ comment.User.prenom }} {{ comment.User.nom }} </i></strong
+          >
+          le
           {{ dateFormat(comment.createdAt) }}
         </div>
         <div class="comment-message">
           {{ comment.message }}
+          <button @click="deleteComment(comment.id)" class="delete-comment">
+            Supprimer
+          </button>
         </div>
-        <button @click="deleteComment(comment.id)">Supprimer</button>
       </div>
     </div>
   </div>
@@ -87,10 +93,7 @@ export default {
             Authorization: `Bearer ${user.token}`,
           },
         })
-        .then((result) => {
-          this.post.Comments.delete(result.data.comment);
-          location.reload();
-        });
+        .then(location.reload());
     },
   },
 };
@@ -120,6 +123,7 @@ textarea {
   padding: 10px;
   border-radius: 10px;
   margin: 5px;
+  margin-bottom: 5px;
 }
 /* Commentaires */
 .comments {
@@ -142,16 +146,27 @@ textarea {
 .comment:hover {
   box-shadow: 0px 0px 50px -7px rgba(0, 0, 0, 0.2);
 }
-h2 {
+h4 {
   margin-top: 10px;
   margin-bottom: 10px;
-  margin-left: -40px;
+  margin-left: -35px;
   text-align: left;
 }
 .comment-info {
   font-size: 0.7rem;
+  margin-bottom: 2px;
 }
 .comment-message {
+  display: flex;
+  justify-content: space-between;
   font-size: 0.9rem;
+}
+.delete-comment {
+  background-color: black;
+  color: red;
+  font-size: 0.8rem;
+  padding: 3px;
+  border-radius: 5px;
+  margin-top: -10px;
 }
 </style>
