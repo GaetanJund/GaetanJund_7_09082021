@@ -68,8 +68,7 @@ export default {
             Authorization: `Bearer ${user.token}`,
           },
         })
-        .then(localStorage.removeItem("user"))
-        .then((location.assign = "/"));
+        .then(localStorage.removeItem("user"), location.assign("/"));
     },
   },
 };

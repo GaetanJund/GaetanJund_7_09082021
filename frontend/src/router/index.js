@@ -23,7 +23,7 @@ const routes = [{
     component: HomePage
 },
 {
-    path: '/',
+    path: '/post',
     name: 'Post',
     component: () => import('../components/Post.vue'),
 },

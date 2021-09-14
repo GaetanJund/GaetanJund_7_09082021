@@ -5,6 +5,7 @@
         name="newComment"
         id="new-comment"
         placeholder="Laissez un commentaire..."
+        v-model="comment"
         required
       ></textarea>
       <button type="submit" id="send-comment" class="send-comment">
@@ -15,7 +16,7 @@
     <h2 v-if="comments.length > 0">Commentaires du post :</h2>
 
     <div class="comments2">
-      <div class="comment" v-for="comment in comments" :key="comment.id">
+      <div class="comment" v-for="comment in post.Comments" :key="comment.id">
         <div class="comment-info">
           Par {{ comment.prenom }} {{ comment.nom }} le
           {{ dateFormat(comment.createdAt) }}
@@ -23,6 +24,7 @@
         <div class="comment-message">
           {{ comment.message }}
         </div>
+        <button @click="deleteComment(comment.id)">Supprimer</button>
       </div>
     </div>
   </div>
@@ -35,22 +37,22 @@ export default {
   data() {
     return {
       comments: [],
-      user: [],
+      posts: [],
     };
   },
-  mounted() {
-    this.getAllComments();
+  props: {
+    post: Object,
   },
   methods: {
     newComment() {
       // GetItem pour retrouver le token du User
       let user = JSON.parse(localStorage.getItem("user"));
-      const message = document.getElementById("new-comment").value;
       axios
         .post(
           `http://localhost:3000/api/comment/add`,
           {
-            message,
+            message: this.comment,
+            postId: this.post.id,
           },
           {
             headers: {
@@ -59,20 +61,9 @@ export default {
             },
           }
         )
-        .then(this.getAllComments());
-    },
-    getAllComments() {
-      // GetItem pour retrouver le token du User
-      let user = JSON.parse(localStorage.getItem("user"));
-      axios
-        .get(`http://localhost:3000/api/comment/comments`, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${user.token}`,
-          },
-        })
-        .then((res) => {
-          this.comments = res.data;
+        .then((result) => {
+          this.post.Comments.push(result.data.comment);
+          location.reload();
         });
     },
     dateFormat(date) {
@@ -85,6 +76,21 @@ export default {
         minute: "numeric",
       };
       return event.toLocaleDateString("fr-FR", options);
+    },
+    deleteComment(commentId) {
+      // GetItem pour retrouver le token du User
+      let user = JSON.parse(localStorage.getItem("user"));
+      axios
+        .delete(`http://localhost:3000/api/comment/${commentId}`, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${user.token}`,
+          },
+        })
+        .then((result) => {
+          this.post.Comments.delete(result.data.comment);
+          location.reload();
+        });
     },
   },
 };

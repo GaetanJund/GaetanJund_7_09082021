@@ -20,7 +20,7 @@ exports.createPost = (req, res, next) => {
 exports.deletePost = (req, res, next) => {
     Post.findOne({
         where: {
-            _id: req.params.id
+            id: req.params.id
         }
     }).then(
         (post) => {

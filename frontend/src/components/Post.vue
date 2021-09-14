@@ -8,15 +8,19 @@
             <strong>{{ post.User.prenom }} {{ post.User.nom }}</strong></span
           ></i
         >
+        <button class="post-delete" @click="deletePost(post.id)">
+          Supprimer
+        </button>
       </div>
       <div class="post-message" v-html="characterLimit(post.message)"></div>
-      <Comments />
+
+      <Comments v-bind:post="post" />
     </article>
   </div>
 </template>
 
 <script>
-import Comments from "../components/Comments.vue"
+import Comments from "../components/Comments.vue";
 import axios from "axios";
 export default {
   name: "Posts",
@@ -73,6 +77,19 @@ export default {
         minute: "numeric",
       };
       return event.toLocaleDateString("fr-FR", options);
+    },
+    // Fonction supprimer un post
+    deletePost(postId) {
+      // GetItem pour retrouver le token du User
+      let user = JSON.parse(localStorage.getItem("user"));
+      axios
+        .delete(`http://localhost:3000/api/post/${postId}`, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${user.token}`,
+          },
+        })
+        .then(location.reload());
     },
   },
 };

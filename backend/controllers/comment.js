@@ -11,7 +11,7 @@ exports.addComment = (req, res, next) => {
         }
     )
     comment.save()
-        .then(() => res.status(201).json({ message: "Commentaire ajouté !" }))
+        .then(() => res.status(201).json({ comment }))
         .catch(error => res.status(400).json({ error }))
 }
 
@@ -45,7 +45,7 @@ exports.updateComment = (req, res, next) => {
 exports.deleteComment = (req, res, next) => {
     Comments.findOne({
         where: {
-            _id: req.params.id
+            id: req.params.id
         }
     }).then(
         (comments) => {
@@ -87,7 +87,12 @@ exports.getOneComment = (req, res, next) => {
 
 // Récupérer tous les post
 exports.getAllComment = (req, res, next) => {
-    Comments.findAll()
+    Comments.findAll({
+        include: [{
+            model: User,
+            attributes: ['nom', 'prenom'],
+        }]
+    })
         .then(Comment => res.status(200).json(Comment))
         .catch(error => res.status(400).json({ error }));
 };

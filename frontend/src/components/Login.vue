@@ -83,6 +83,7 @@ export default {
           }
           if (error.response.status === 401) {
             this.message = "Email ou mot de passe invalide.";
+            window.alert("Email ou Mot de Passe incorrect");
           }
           if (error.response.status === 500) {
             this.message = "Erreur serveur.";
