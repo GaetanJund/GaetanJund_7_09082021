@@ -9,6 +9,7 @@
           placeholder="Quoi de neuf ?"
           required
         />
+        <h5>Ajoutez une image :</h5>
         <input
           @change="onFileChange()"
           type="file"
@@ -93,14 +94,18 @@ input {
   border: 2px solid black;
   border-radius: 10px 10px 10px 10px;
   padding: 10px;
+  margin: 10px;
   height: 100px;
   width: 1000px;
   text-align: left;
 }
+.form-control-file{
+  width: 500px;
+}
 .publication {
   padding: 6px 100px;
   font-size: 1.1rem;
-  background-color: red;
+  background-color: black;
   color: white;
   margin-bottom: 20px;
   border-radius: 10px 10px 10px 10px;
@@ -108,12 +113,20 @@ input {
   cursor: pointer;
 }
 .publication:hover {
+  background-color: red;
+  color: black;
   transform: scale(1.02);
 }
 /* Format mobile */
 @media screen and (max-width: 480px) {
   input {
     max-width: 330px;
+  }
+}
+/* Format Ipad */
+@media screen and (max-width: 1024px) {
+  input {
+    max-width: 600px;
   }
 }
 </style>

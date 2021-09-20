@@ -13,8 +13,7 @@
       </button>
     </form>
 
-    <div v-for="comment in post.Comments" :key="comment.id">
-    </div>
+    <div v-for="comment in post.Comments" :key="comment.id"></div>
 
     <div class="comments2">
       <div class="comment" v-for="comment in post.Comments" :key="comment.id">
@@ -31,6 +30,7 @@
           <button
             class="delete-comment"
             @click="deleteComment(comment.id)"
+            v-if="comment.deleteButton"
           >
             Supprimer
           </button>
@@ -54,6 +54,18 @@ export default {
   props: {
     post: Object,
   },
+  // Au chargement de la page, détecte si user est celui qui a crée le comment ou non
+  created() {
+    // GetItem pour retrouver le token du User
+    let user = JSON.parse(localStorage.getItem("user"));
+    for (let comment of this.post.Comments) {
+      if (comment.user_id == user.userId || user.isAdmin) {
+        comment.deleteButton = true;
+      } else {
+        comment.deleteButton = false;
+      }
+    }
+  },
   methods: {
     newComment() {
       // GetItem pour retrouver le token du User
@@ -75,6 +87,13 @@ export default {
         .then((result) => {
           this.post.Comments.push(result.data.comment);
           location.reload();
+          for (let comment of this.comments) {
+            if (comment.user_id == user.userId || user.isAdmin) {
+              comment.deleteButton = true;
+            } else {
+              comment.deleteButton = false;
+            }
+          }
         });
     },
     dateFormat(date) {

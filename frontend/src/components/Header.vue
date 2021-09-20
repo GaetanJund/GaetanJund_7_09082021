@@ -65,6 +65,8 @@ nav {
 }
 #disconnect-btn:hover,
 #profile-btn:hover {
+  background-color: red;
+  color: black;
   transform: scale(1.02);
 }
 </style>

@@ -82,8 +82,9 @@ export default {
           }
         })
         .catch((error) => {
-          if (error.response.status === 401) {
+          if (error.response.status === 400) {
             this.message = "Email non disponible.";
+            window.alert("Mot de passe requis : 5 caractères minimun. Au moins 1 Majuscule, 1 minuscule.");
           }
         });
     },

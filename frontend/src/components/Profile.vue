@@ -1,7 +1,7 @@
 <template>
   <div class="userProfile">
     <div class="profile-info" v-for="user in user" :key="user.id">
-      <h2>Bonjour,</h2>
+      <h2><u>Informations du profil :</u></h2>
       <div class="preofile-nom">
         <h4>Nom :</h4>
         <p>{{ user.nom }}</p>
@@ -79,6 +79,7 @@ export default {
   margin: 50px auto;
   text-align: center;
   max-width: 800px;
+  border: 2px solid black;
 }
 .profile-info h2 {
   margin-bottom: 20px;
@@ -99,13 +100,15 @@ export default {
   margin-bottom: 30px;
   margin-left: auto;
   margin-right: auto;
-  padding: 11px;
+  padding: 11.2px;
   font-size: 1.2rem;
   text-align: center;
   cursor: pointer;
   transition: 0.2s;
 }
 .delete-profile:hover {
+  background-color: red;
+  color: black;
   transform: scale(1.02);
 }
 </style>
