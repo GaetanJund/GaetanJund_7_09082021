@@ -8,8 +8,9 @@ const Post = database.define('Post', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    // likes: DataTypes.INTEGER,
-    // DisLikes: DataTypes.INTEGER
+    image: {
+        type: DataTypes.STRING,
+    }
 });
 
 module.exports = Post;

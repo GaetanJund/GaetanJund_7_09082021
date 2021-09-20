@@ -6,12 +6,16 @@ const { Post, User, Comments } = require('../models/index');
 
 // Créer un post
 exports.createPost = (req, res, next) => {
-    const post = new Post({
+    let post = {
         message: req.body.message,
         user_id: req.token.userId
-    })
+    }
+    if (req.file){
+        post.image= `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
+    }
+    const newpost = new Post(post);
     // Sauvegarde post dans la base de donnée
-    post.save()
+    newpost.save()
         .then(() => res.status(201).json({ message: 'Post enregistré !' }))
         .catch(error => res.status(400).json({ error }));
 };

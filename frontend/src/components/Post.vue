@@ -8,11 +8,16 @@
             <strong>{{ post.User.prenom }} {{ post.User.nom }}</strong></span
           ></i
         >
-        <button class="delete-post" @click="deletePost(post.id)">
+        <button
+          class="delete-post"
+          @click="deletePost(post.id)"
+          v-if="post.deleteButton"
+        >
           Supprimer
         </button>
       </div>
       <div class="post-message" v-html="characterLimit(post.message)"></div>
+      <img v-bind:src="post.image" class="image" />
 
       <Comments v-bind:post="post" />
     </article>
@@ -31,6 +36,7 @@ export default {
     // Retourne les posts
     return {
       posts: [],
+      user: [],
     };
   },
   mounted() {
@@ -54,6 +60,13 @@ export default {
         })
         .then((res) => {
           this.posts = res.data;
+          for (let post of this.posts) {
+            if (post.user_id == user.userId || user.isAdmin) {
+              post.deleteButton = true;
+            } else {
+              post.deleteButton = false;
+            }
+          }
         });
     },
     // Fonction pour limite de caractère avant les ...
@@ -134,5 +147,9 @@ export default {
 }
 .post-message {
   font-size: 1.1rem;
+}
+.image {
+  max-width: 400px;
+  margin-top: 20px;
 }
 </style>

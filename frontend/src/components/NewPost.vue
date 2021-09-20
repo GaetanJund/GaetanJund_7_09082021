@@ -9,6 +9,15 @@
           placeholder="Quoi de neuf ?"
           required
         />
+        <input
+          @change="onFileChange()"
+          type="file"
+          ref="file"
+          name="image"
+          class="form-control-file"
+          id="File"
+          accept="*"
+        />
         <br /><br />
         <button class="publication" type="submit">Publier</button>
       </div>
@@ -24,25 +33,32 @@ export default {
   data() {
     return {
       message: "",
+      image: "",
     };
   },
   methods: {
+    onFileChange() {
+      this.file = this.$refs.file.files[0];
+      this.newImage = URL.createObjectURL(this.file);
+    },
     // Fonction pour ajouter un nouveau post
     newpost() {
       // Définit des constantes, recherche valeurs des éléments par Id
       const newpost = document.getElementById("newpost-text").value;
       // GetItem pour retrouver le token du User
       let user = JSON.parse(localStorage.getItem("user"));
+      let data = new FormData ();
+      data.append("message", newpost);
+      if (this.file) {
+        data.append("image", this.file);
+      }
       axios
         // POST -- Envoi des doonénes vers l'API
         .post(
           `http://localhost:3000/api/post/add`,
-          {
-            message: newpost,
-          },
+          data,
           {
             headers: {
-              "Content-Type": "application/json",
               Authorization: `Bearer ${user.token}`,
             },
           }
@@ -93,5 +109,11 @@ input {
 }
 .publication:hover {
   transform: scale(1.02);
+}
+/* Format mobile */
+@media screen and (max-width: 480px) {
+  input {
+    max-width: 330px;
+  }
 }
 </style>

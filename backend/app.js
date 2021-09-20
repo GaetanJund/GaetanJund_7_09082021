@@ -1,6 +1,6 @@
 // Importe package express + body-parser
 const express = require('express');
-const bodyParser = require('body-parser');
+const path = require('path');
 const { loadModel } = require('./models/index');
 
 // Routes vers utilisateurs, publications et comment
@@ -28,7 +28,7 @@ app.use(express.json());
 app.use(express.urlencoded({
     extended: true
 }));
-app.use(bodyParser.json());
+app.use(express.json());
 
 // Routes vers utilisateurs
 app.use('/api/auth', userRoutes);
@@ -36,5 +36,7 @@ app.use('/api/auth', userRoutes);
 app.use('/api/post', postRoutes);
 // Routes vers commentaires
 app.use('/api/comment', commentRoutes);
+// Gestionnaire de routage images
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 module.exports = app;

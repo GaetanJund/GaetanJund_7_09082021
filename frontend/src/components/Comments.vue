@@ -13,7 +13,8 @@
       </button>
     </form>
 
-    <h4><u>Commentaires du post :</u></h4>
+    <div v-for="comment in post.Comments" :key="comment.id">
+    </div>
 
     <div class="comments2">
       <div class="comment" v-for="comment in post.Comments" :key="comment.id">
@@ -27,7 +28,10 @@
         </div>
         <div class="comment-message">
           {{ comment.message }}
-          <button @click="deleteComment(comment.id)" class="delete-comment">
+          <button
+            class="delete-comment"
+            @click="deleteComment(comment.id)"
+          >
             Supprimer
           </button>
         </div>
@@ -44,6 +48,7 @@ export default {
     return {
       comments: [],
       posts: [],
+      user: [],
     };
   },
   props: {
@@ -126,7 +131,7 @@ textarea {
   margin-bottom: 5px;
 }
 /* Commentaires */
-.comments {
+.comments2 {
   margin: 0 auto;
   padding: 20px;
   max-width: 650px;
@@ -168,5 +173,14 @@ h4 {
   padding: 3px;
   border-radius: 5px;
   margin-top: -10px;
+}
+/* Format mobile */
+@media screen and (max-width: 480px) {
+  textarea {
+    max-width: 280px;
+  }
+  .comment {
+    padding-bottom: 60px;
+  }
 }
 </style>

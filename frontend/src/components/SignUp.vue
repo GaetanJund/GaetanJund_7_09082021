@@ -33,15 +33,6 @@
       <label for="signup-email">Email :</label>
       <input id="signup-email" type="email" placeholder="Email" required />
 
-      <label for="avatar">Choose a profile picture:</label>
-
-      <input
-        type="file"
-        id="photo"
-        name="photo"
-        accept="image/png, image/jpeg"
-      />
-
       <button id="signup-btn" type="submit">S'inscrire</button>
     </form>
     <footer>
@@ -68,7 +59,6 @@ export default {
       const prenom = document.getElementById("signup-prenom").value;
       const password = document.getElementById("signup-password").value;
       const email = document.getElementById("signup-email").value;
-      const photo = document.getElementById("photo").value;
       axios
         // POST -- Envoi des doonénes vers l'Api
         .post(
@@ -77,8 +67,7 @@ export default {
             nom: nom,
             prenom: prenom,
             password: password,
-            email: email,
-            photo: photo,
+            email: email
           },
           {
             headers: {
