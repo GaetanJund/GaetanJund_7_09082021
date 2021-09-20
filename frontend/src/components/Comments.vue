@@ -9,7 +9,7 @@
         required
       ></textarea>
       <button type="submit" id="send-comment" class="send-comment">
-        Envoyer
+        Commenter
       </button>
     </form>
 
